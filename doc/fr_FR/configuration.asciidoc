@@ -1,0 +1,11 @@
+﻿Pour le configurer c’est très simple il suffit de créer un équipement par agenda puis de lui associer des patterns d'isolation d'event.
+
+image::../images/caldav_config1.jpg[]
+
+Dans la case pattern, il est possible de mettre une pattern pour filtrer/extraire un évènement.
+
+Exemple de pattern : !^Arrière-cuisine (.*)$!
+
+Si l'évènement est "Arrière-cuisine 15", la valeur retournée sera 15. Ce qui permet de gérer des températures pour une programmation.
+
+http://perldoc.perl.org/perlre.html
