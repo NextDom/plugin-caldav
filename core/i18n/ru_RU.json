@@ -1,5 +1,5 @@
 {
-    "plugins/caldav/desktop/php/caldav.php": {
+    "plugins\/caldav\/desktop\/php\/caldav.php": {
         "Ajouter un agenda": "Ajouter un agenda",
         "Rechercher": "Rechercher",
         "Mes agendas Caldav": "Mes agendas Caldav",
@@ -20,7 +20,7 @@
         "Supprimer": "Supprimer",
         "Sauvegarder": "Sauvegarder"
     },
-    "plugins/caldav/desktop/js/caldav.js": {
+    "plugins\/caldav\/desktop\/js\/caldav.js": {
         "Tester": "Tester"
     }
 }

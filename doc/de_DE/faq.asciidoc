@@ -1,0 +1,10 @@
+[panel,primary]
+.Peut on avoir les futurs evenements
+--
+Non ce n'est pas possible le plugin ne donne que les évenements en cours
+--
+
+.Quelle est la fréquence de rafraichissement des informations ?
+--
+Par défaut c'est toutes les minutes.
+--
