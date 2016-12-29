@@ -32,9 +32,9 @@ class caldav extends eqLogic {
 
     /*     * ***********************Methode static*************************** */
 
-	public static function cron() {
+	public static function pull() {
 		foreach (self::byType('caldav') as $eqLogic) {
-			$eqLogic->pull();
+			$eqLogic->scan();
 		}
 	}
 
@@ -42,11 +42,11 @@ class caldav extends eqLogic {
 	{
 		if ( $this->getIsEnable() )
 		{
-			return $this->pull();
+			return $this->scan();
 		}
 	}
 
-    public function pull() {
+    public function getCalendars() {
 		if ( $this->getIsEnable() ) {
 			try {
 				$desc_event = array();
@@ -54,30 +54,54 @@ class caldav extends eqLogic {
 				$time = mktime();
 				$client = new SimpleCalDAVClient();
 				$client->connect($this->getConfiguration('url'), $this->getConfiguration('username'), $this->getConfiguration('password'));
-				log::add('caldav', 'info', 'Find calendar');
+				log::add('caldav', 'debug', 'Find calendar');
 				$arrayOfCalendars = $client->findCalendars();
-				log::add('caldav', 'info', 'Trouve '.print_r($arrayOfCalendars, true));
-				log::add('caldav', 'info', 'Chose calendar');
-				$client->setCalendar($arrayOfCalendars["thomas"]);
-				log::add('caldav', 'info', 'Recupere les évenements entre '.date("Ymd\THi00\Z", $time).' et '.date("Ymd\THi59\Z", $time));
-				$events = $client->getEvents(date("Ymd\THi00\Z", $time),date("Ymd\THi59\Z", $time));
-				log::add('caldav', 'info', 'Trouve '.count($events).' events');
+				return array_keys ($arrayOfCalendars);
+			} catch (Exception $e) {
+				log::add('caldav', 'debug', 'URL non valide ou accès internet invalide : ' .  $e->__toString());
+#				throw $e;
+			}
+		}
+	}
+	
+	public function scan() {
+		if ( $this->getIsEnable() ) {
+			try {
+				$desc_event = array();
+				$events = array();
+				$time = mktime();
+				$client = new SimpleCalDAVClient();
+				$client->connect($this->getConfiguration('url'), $this->getConfiguration('username'), $this->getConfiguration('password'));
+				log::add('caldav', 'debug', 'Find calendar');
+				$arrayOfCalendars = $client->findCalendars();
+				log::add('caldav', 'debug', 'Chose calendar '.$this->getConfiguration('calendrier'));
+				$client->setCalendar($arrayOfCalendars[$this->getConfiguration('calendrier')]);
+				log::add('caldav', 'debug', 'Recupere les évenements entre '.date("Ymd\THi00\Z", $time).' et '.date("Ymd\THi59\Z", $time));
+				try {
+					$events = $client->getEvents(date("Ymd\THi00\Z", $time),date("Ymd\THi59\Z", $time));
+				} catch (Exception $e) {
+					log::add('caldav', 'debug', 'Aucun event');
+				}
+//				log::add('caldav', 'debug', 'Recupere les évenements entre '.date("Ymd\TH0000\Z", $time).' et '.date("Ymd\TH0059\Z", $time));
+//				$events = $client->getEvents(date("Ymd\TH0000\Z", $time),date("Ymd\TH0059\Z", $time));
+//				$events = $client->getEvents();
+				log::add('caldav', 'debug', 'Trouve '.count($events).' events');
 				foreach ( $events AS $event ) {
 					$data = $event->getData();
-					log::add('caldav', 'info', 'Event => '.print_r($data, true));
-					foreach ( explode("\n", $data) AS $info) {
-						log::add('caldav', 'info', 'info : '.$info);
-						if ( preg_match("!^(.*):(.*)$!", $info, $regs) ) {
+					log::add('caldav', 'debug', 'Event => '.print_r($data, true));
+					foreach ( explode("\n", $data) AS $debug) {
+						log::add('caldav', 'debug', 'debug : '.$debug);
+						if ( preg_match("!^(.*):(.*)$!", $debug, $regs) ) {
 							if ( $regs[1] == "SUMMARY" ) {
-								log::add('caldav', 'info', 'Trouve '.$regs[2]);
+								log::add('caldav', 'debug', 'Trouve '.$regs[2]);
 								array_push($desc_event, $regs[2]);
 							}
 						}
 					}
 					break;
 				}
-				log::add('caldav', 'info', 'Recherche correspondance cmd');
-				foreach ($this->getCmd('info') as $cmd) {
+				log::add('caldav', 'debug', 'Recherche correspondance cmd');
+				foreach ($this->getCmd() as $cmd) {
 					$value = $cmd->extract($desc_event);
 					if ($value != $cmd->execCmd()) {
 						$cmd->setCollectDate(date('Y-m-d H:i:s'));
@@ -85,7 +109,7 @@ class caldav extends eqLogic {
 					}
 				}
 			} catch (Exception $e) {
-				log::add('caldav', 'info', 'URL non valide ou accès internet invalide : ' .  $e->__toString());
+				log::add('caldav', 'debug', 'URL non valide ou accès internet invalide : ' .  $e->__toString());
 #				throw $e;
 			}
 		}
@@ -104,10 +128,10 @@ class caldavCmd extends cmd {
 		if ( count($events) != 0 ) {
 			foreach ( $events AS $event ) {
 				if ( $this->getConfiguration('pattern') == '' ) {
-					log::add('caldav', 'info', 'Correspond sans pattern');
+					log::add('caldav', 'debug', 'Correspond sans pattern');
 					array_push($result, $event);
 				} elseif ( preg_match($this->getConfiguration('pattern'), $event, $regs) ) {
-					log::add('caldav', 'info', 'Correspond avec pattern et trouve : '.$regs["1"]);
+					log::add('caldav', 'debug', 'Correspond avec pattern et trouve : '.$regs["1"]);
 					if ( !isset($regs["1"]) || $regs["1"] == '' ) {
 						array_push($result, $event);
 					} else {
@@ -117,7 +141,7 @@ class caldavCmd extends cmd {
 			}
 		}
 		if (count($result) == 0) {
-			log::add('caldav', 'info', 'Acune valeur trouve');
+			log::add('caldav', 'debug', 'Acune valeur trouve');
 			if ($this->getConfiguration('defaultValue') == '') {
 				return __('Aucun', __FILE__);
 			} else {
@@ -129,7 +153,7 @@ class caldavCmd extends cmd {
 
     public function execute($_options = array()) {
 		$EqLogic = $this->getEqLogic();
-		$EqLogic->pull();
+		$EqLogic->scan();
 		return $this->execCmd();
 	}
     /*     * **********************Getteur Setteur*************************** */

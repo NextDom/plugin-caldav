@@ -1,0 +1,4 @@
+[horizontal]
+1.20:: Possibilité de choisir un calendrier et remise en fonctionnement du plugin
+
+1.10:: Version beta du plugin

@@ -37,3 +37,29 @@ function addCmdToTable(_cmd) {
     $('#table_cmd tbody').append(tr);
     $('#table_cmd tbody tr:last').setValues(_cmd, '.cmdAttr');
 }
+
+function printEqLogic() {
+    $.ajax({// fonction permettant de faire de l'ajax
+        type: "POST", // methode de transmission des données au fichier php
+        url: "plugins/caldav/core/ajax/caldav.ajax.php", // url du fichier php
+        data: {
+            action: "getCalendars",
+			id: $('.li_eqLogic.active').attr('data-eqLogic_id'),
+        },
+        dataType: 'json',
+        error: function(request, status, error) {
+            handleAjaxError(request, status);
+        },
+        success: function(data) { // si l'appel a bien fonctionné
+			if (data.state == 'ok') {
+				option = '';
+				for (var i = 0, len = data.result.length; i < len; i++) {
+					option += '<option value="' + data.result[i] + '">' + data.result[i] + '</option>';
+				}
+				$('.eqLogicAttr[data-l1key=configuration][data-l2key=calendrier]').html(option);
+			}
+			return;
+        }
+    });
+}
+

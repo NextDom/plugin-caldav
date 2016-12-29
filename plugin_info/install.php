@@ -19,18 +19,33 @@
 require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
 
 function caldav_install() {
+    $cron = cron::byClassAndFunction('caldav', 'pull');
+	if ( ! is_object($cron)) {
+        $cron = new cron();
+        $cron->setClass('caldav');
+        $cron->setFunction('pull');
+        $cron->setEnable(1);
+        $cron->setDeamon(0);
+        $cron->setSchedule('* * * * *');
+        $cron->save();
+	}
 }
 
 function caldav_update() {
-    $cron = cron::byClassAndFunction('caldav', 'cron');
-    if (is_object($cron)) {
-		$cron->stop();
-        $cron->remove();
-    }
+    $cron = cron::byClassAndFunction('caldav', 'pull');
+	if ( ! is_object($cron)) {
+        $cron = new cron();
+        $cron->setClass('caldav');
+        $cron->setFunction('pull');
+        $cron->setEnable(1);
+        $cron->setDeamon(0);
+        $cron->setSchedule('* * * * *');
+        $cron->save();
+	}
 }
 
 function caldav_remove() {
-    $cron = cron::byClassAndFunction('caldav', 'cron');
+    $cron = cron::byClassAndFunction('caldav', 'pull');
     if (is_object($cron)) {
 		$cron->stop();
         $cron->remove();

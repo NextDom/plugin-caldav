@@ -115,8 +115,7 @@ $eqLogics = eqLogic::byType('caldav');
                 <div class="form-group">
                     <label class="col-lg-2 control-label">{{Calendrier}}</label>
                     <div class="col-lg-3">
-                        <select class="eqLogicAttr form-control" data-l1key="calendrier">
-                            <option value="">{{Aucun}}</option>
+                        <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="calendrier" id="CalendarsList">
                         </select>
                     </div>
                 </div>
