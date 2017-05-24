@@ -1,4 +1,12 @@
 [horizontal]
-1.20:: Possibilité de choisir un calendrier et remise en fonctionnement du plugin
+WARNING: Detail complet des mises à jour sur https://github.com/guenneguezt/plugin-caldav/commits/master[Historique Commit]
 
-1.10:: Version beta du plugin
+Liste des évolutions majeures de la version courante :
+
+- Modification pour compatibilité Jeedom V3
+- Plus de suivi de version
+
+Anciennes évolutions :
+
+- Possibilité de choisir un calendrier et remise en fonctionnement du plugin
+- Version beta du plugin
