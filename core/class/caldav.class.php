@@ -93,8 +93,8 @@ class caldav extends eqLogic {
 						log::add('caldav', 'debug', 'debug : '.$debug);
 						if ( preg_match("!^(.*):(.*)$!", $debug, $regs) ) {
 							if ( $regs[1] == "SUMMARY" ) {
-								log::add('caldav', 'debug', 'Trouve '.$regs[2]);
-								array_push($desc_event, $regs[2]);
+								log::add('caldav', 'debug', 'Trouve '.chop($regs[2]));
+								array_push($desc_event, chop($regs[2]));
 							}
 						}
 					}
@@ -131,10 +131,11 @@ class caldavCmd extends cmd {
 					log::add('caldav', 'debug', 'Correspond sans pattern');
 					array_push($result, $event);
 				} elseif ( preg_match($this->getConfiguration('pattern'), $event, $regs) ) {
-					log::add('caldav', 'debug', 'Correspond avec pattern et trouve : '.$regs["1"]);
 					if ( !isset($regs["1"]) || $regs["1"] == '' ) {
+						log::add('caldav', 'debug', 'Correspond avec pattern trouve');
 						array_push($result, $event);
 					} else {
+						log::add('caldav', 'debug', 'Correspond avec pattern et trouve : '.$regs["1"]);
 						array_push($result, $regs["1"]);
 					}
 				}

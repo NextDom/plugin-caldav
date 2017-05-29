@@ -96,19 +96,19 @@ $eqLogics = eqLogic::byType('caldav');
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">{{URL caldav}}</label>
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                         <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="url"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">{{Compte}}</label>
-                    <div class="col-lg-3">
+                    <div class="col-lg-2">
                         <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="username"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">{{Password}}</label>
-                    <div class="col-lg-3">
+                    <div class="col-lg-2">
                         <input type="password" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="password"/>
                     </div>
                 </div>
