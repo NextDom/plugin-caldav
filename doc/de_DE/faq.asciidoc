@@ -1,21 +1,21 @@
 [panel,primary]
-.Peut on avoir les futurs evenements
+.Kann man die zukünftige Ereignisse haben ?
 --
-Non ce n'est pas possible le plugin ne donne que les évenements en cours
---
-
-.Quelle est la fréquence de rafraichissement des informations ?
---
-Par défaut c'est toutes les minutes.
+Nein, das ist es nicht möglich, das Plugin gibt nur aktuelle Ereignisse aus
 --
 
-.Pourquoi le plugin est gratuit ?
+ Wie ist die Aktualisierungsrate von Informationen ?
 --
-Ce plugin est gratuit pour que chacun puisse en profiter simplement. Si vous souhaitez tout de même faire un don au développeur du plugin, utilisez le lien suivant.
+Der Standardwert ist jede Minute.
+--
+
+.Warum ist das Plugin kostenlos?
+--
+Dieses Plugin ist kostenlos, damit jeder davon einfach profitieren kann. Wenn Sie dennoch für den Plugin-Entwickler spenden möchten, verwenden Sie den folgenden Link.
 link:https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8GKZV8MJVJZP2[Faire un don au développeur du plugin]
 --
 
-.J'aimerai remonter des erreurs/modifications directement dans le code ?
+Ich möchte frühere Fehler/Änderungen im Code direkt ansehen?
 --
-C'est tout à fait possible via https://github.com/guenneguezt/plugin-caldav[github]
+Es ist durchaus möglich über https://github.com/guenneguezt/plugin-caldav[github]
 --
