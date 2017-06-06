@@ -42,7 +42,27 @@ class caldav extends eqLogic {
 	{
 		if ( $this->getIsEnable() )
 		{
-			return $this->scan();
+			$client = new SimpleCalDAVClient();
+			log::add('caldav', 'debug', 'Check calendar access');
+			try {
+				$client->connect($this->getConfiguration('url'), $this->getConfiguration('username'), $this->getConfiguration('password'));
+				log::add('caldav', 'debug', 'Calendar access OK');
+				if ( $this->getConfiguration('calendrier') != "" )
+				{
+					log::add('caldav', 'debug', 'Check calendar exist');
+					$arrayOfCalendars = $client->findCalendars();
+					if ( isset($arrayOfCalendars[$this->getConfiguration('calendrier')]))
+					{
+						log::add('caldav', 'debug', 'Calendar find');
+					}
+					else
+					{
+						log::add('caldav', 'error', 'Unable to find '.$this->getConfiguration('calendrier').' calendar');
+					}
+				}
+			} catch (Exception $e) {
+				log::add('caldav', 'error', 'Unable to validate access : '.$e->__toString());
+			}
 		}
 	}
 
@@ -58,29 +78,31 @@ class caldav extends eqLogic {
 				$arrayOfCalendars = $client->findCalendars();
 				return array_keys ($arrayOfCalendars);
 			} catch (Exception $e) {
-				log::add('caldav', 'debug', 'URL non valide ou accès internet invalide : ' .  $e->__toString());
+				log::add('caldav', 'error', 'URL non valide ou accès internet invalide : ' .  $e->__toString());
 #				throw $e;
 			}
 		}
 	}
 	
 	public function scan() {
-		if ( $this->getIsEnable() ) {
+		if ( $this->getIsEnable() && $this->getConfiguration('calendrier') != "" ) {
 			try {
 				$desc_event = array();
 				$events = array();
+				date_default_timezone_set('GMT');
 				$time = mktime();
 				$client = new SimpleCalDAVClient();
 				$client->connect($this->getConfiguration('url'), $this->getConfiguration('username'), $this->getConfiguration('password'));
-				log::add('caldav', 'debug', 'Find calendar');
-				$arrayOfCalendars = $client->findCalendars();
 				log::add('caldav', 'debug', 'Chose calendar '.$this->getConfiguration('calendrier'));
+
+				$arrayOfCalendars = $client->findCalendars();
 				$client->setCalendar($arrayOfCalendars[$this->getConfiguration('calendrier')]);
-				log::add('caldav', 'debug', 'Recupere les évenements entre '.date("Ymd\THi00\Z", $time).' et '.date("Ymd\THi59\Z", $time));
 				try {
+					log::add('caldav', 'debug', 'Recupere les évenements entre '.date("Ymd\THi00\Z", $time).' et '.date("Ymd\THi59\Z", $time));
 					$events = $client->getEvents(date("Ymd\THi00\Z", $time),date("Ymd\THi59\Z", $time));
 				} catch (Exception $e) {
-					log::add('caldav', 'debug', 'Aucun event');
+					print('Aucun event : '.$e->__toString());
+					log::add('caldav', 'error', 'Aucun event : '.$e->__toString());
 				}
 //				log::add('caldav', 'debug', 'Recupere les évenements entre '.date("Ymd\TH0000\Z", $time).' et '.date("Ymd\TH0059\Z", $time));
 //				$events = $client->getEvents(date("Ymd\TH0000\Z", $time),date("Ymd\TH0059\Z", $time));
@@ -109,7 +131,7 @@ class caldav extends eqLogic {
 					}
 				}
 			} catch (Exception $e) {
-				log::add('caldav', 'debug', 'URL non valide ou accès internet invalide : ' .  $e->__toString());
+				log::add('caldav', 'error', 'URL non valide ou accès internet invalide : ' .  $e->__toString());
 #				throw $e;
 			}
 		}

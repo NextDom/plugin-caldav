@@ -42,6 +42,9 @@ function caldav_update() {
         $cron->setSchedule('* * * * *');
         $cron->save();
 	}
+	foreach (eqLogic::byType('caldav') as $eqLogic) {
+		$eqLogic->save();
+	}
 }
 
 function caldav_remove() {
