@@ -101,18 +101,15 @@ class caldav extends eqLogic {
 					log::add('caldav', 'debug', 'Recupere les évenements entre '.date("Ymd\THi00\Z", $time).' et '.date("Ymd\THi59\Z", $time));
 					$events = $client->getEvents(date("Ymd\THi00\Z", $time),date("Ymd\THi59\Z", $time));
 				} catch (Exception $e) {
-					print('Aucun event : '.$e->__toString());
-					log::add('caldav', 'error', 'Aucun event : '.$e->__toString());
+					log::add('caldav', 'debug', 'Aucun event');
+					$events = array();
 				}
-//				log::add('caldav', 'debug', 'Recupere les évenements entre '.date("Ymd\TH0000\Z", $time).' et '.date("Ymd\TH0059\Z", $time));
-//				$events = $client->getEvents(date("Ymd\TH0000\Z", $time),date("Ymd\TH0059\Z", $time));
-//				$events = $client->getEvents();
 				log::add('caldav', 'debug', 'Trouve '.count($events).' events');
 				foreach ( $events AS $event ) {
 					$data = $event->getData();
-					log::add('caldav', 'debug', 'Event => '.print_r($data, true));
+					//log::add('caldav', 'debug', 'Event => '.print_r($data, true));
 					foreach ( explode("\n", $data) AS $debug) {
-						log::add('caldav', 'debug', 'debug : '.$debug);
+						//log::add('caldav', 'debug', 'debug : '.$debug);
 						if ( preg_match("!^(.*):(.*)$!", $debug, $regs) ) {
 							if ( $regs[1] == "SUMMARY" ) {
 								log::add('caldav', 'debug', 'Trouve '.chop($regs[2]));
@@ -120,7 +117,7 @@ class caldav extends eqLogic {
 							}
 						}
 					}
-					break;
+					//break;
 				}
 				log::add('caldav', 'debug', 'Recherche correspondance cmd');
 				foreach ($this->getCmd() as $cmd) {

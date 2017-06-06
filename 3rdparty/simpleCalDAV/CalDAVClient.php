@@ -340,9 +340,12 @@ class CalDAVClient {
 log::add('caldav', 'debug', 'url '.$url);
       curl_setopt($this->ch, CURLOPT_URL, $url);
 
-log::add('caldav', 'debug', 'requestMethod '.$this->requestMethod);
+//log::add('caldav', 'debug', 'requestMethod '.$this->requestMethod);
       // Request method
       curl_setopt($this->ch, CURLOPT_CUSTOMREQUEST, $this->requestMethod);
+      // disable ssh check
+      curl_setopt($this->ch, CURLOPT_SSL_VERIFYHOST, false);
+	  curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, false);
 
       // Empty body. If not used, cURL will spend ~5s on this request
       if ($this->requestMethod == 'HEAD' || empty($this->body) ) {
@@ -355,7 +358,7 @@ log::add('caldav', 'debug', 'requestMethod '.$this->requestMethod);
       if (!isset($this->headers['content-type'])) $this->headers['content-type'] = "Content-type: text/plain";
 
       // Remove cURL generated 'Expect: 100-continue'
-log::add('caldav', 'debug', 'headers '.print_r($this->headers, true));
+//log::add('caldav', 'debug', 'headers '.print_r($this->headers, true));
 	$this->headers['disable_expect'] = 'Expect:';
       curl_setopt($this->ch, CURLOPT_HTTPHEADER,
               array_values($this->headers));
@@ -364,7 +367,7 @@ log::add('caldav', 'debug', 'headers '.print_r($this->headers, true));
               $this->pass);
 
       // Request body
-log::add('caldav', 'debug', 'CURLOPT_POSTFIELDS '.$this->body);
+//log::add('caldav', 'debug', 'CURLOPT_POSTFIELDS '.$this->body);
       curl_setopt($this->ch, CURLOPT_POSTFIELDS, $this->body);
 	  
 	  // Save Request
@@ -1303,12 +1306,12 @@ EOFILTER;
    * Error handeling functions
    */
 
-$debug = TRUE;
+$debug = FALSE;
    
 function SimpleCalDAVClient_log_message ($type, $message) {
 	global $debug;
-	log::add('caldav', 'debug', $type.' '.$message);
 	if ($debug) {
+		log::add('caldav', 'debug', $type.' '.$message);
 		echo '[DEBUG] '.$type.' '.$message.'\n';
 	}
 }

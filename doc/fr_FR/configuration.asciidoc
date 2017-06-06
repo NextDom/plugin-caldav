@@ -2,6 +2,8 @@
 
 image::../images/caldav_config1.jpg[]
 
+Il est nécessaire de renseigner une URL, un compte et un mot de passe pour accéder à l'agenda. Une fois sauvegardé, on peut choisir le calendrier que l'on souhaite utiliser.
+
 Dans la case pattern, il est possible de mettre une pattern pour filtrer/extraire un évènement.
 
 Exemple de pattern : !^Arrière-cuisine (.*)$!
