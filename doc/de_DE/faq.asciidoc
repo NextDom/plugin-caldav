@@ -1,4 +1,9 @@
 [panel,primary]
+.Aucun n'evenement ne remonte
+--
+Avez-vous selectionné et sauvegardé un agenda ?
+--
+
 .Kann man die zukünftige Ereignisse haben ?
 --
 Nein, das ist es nicht möglich, das Plugin gibt nur aktuelle Ereignisse aus

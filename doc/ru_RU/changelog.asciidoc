@@ -3,11 +3,13 @@ WARNING: Detail complet des mises à jour sur https://github.com/guenneguezt/plu
 
 Liste des évolutions majeures de la version courante :
 
-- Correction pour supprimer les caractères de ponctuation en fin
-- Modification pour compatibilité Jeedom V3
-- Plus de suivi de version
+- Test et validation sur framagenda
+- Désactivation de la vérification SSL.
 
 Anciennes évolutions :
 
+- Correction pour supprimer les caractères de ponctuation en fin
+- Modification pour compatibilité Jeedom V3
+- Plus de suivi de version
 - Possibilité de choisir un calendrier et remise en fonctionnement du plugin
 - Version beta du plugin

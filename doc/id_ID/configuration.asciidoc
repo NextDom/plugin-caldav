@@ -2,6 +2,8 @@
 
 image::../images/caldav_config1.jpg[]
 
+Il est nécessaire de renseigner une URL, un compte et un mot de passe pour accéder à l'agenda. Une fois sauvegardé, on peut choisir le calendrier que l'on souhaite utiliser.
+
 Dans la case pattern, il est possible de mettre une pattern pour filtrer/extraire un évènement.
 
 Exemple de pattern : !^Arrière-cuisine (.*)$!
@@ -10,20 +12,8 @@ Si l'évènement est "Arrière-cuisine 15", la valeur retournée sera 15. Ce qui
 
 http://perldoc.perl.org/perlre.html
 
-== Configuration avec Webdav sur Synology
+WARNING: Le nom du calendrier ne peut-être choisi qu'après sauvegarde de l'équipement avec des informations justes. Il peut mettre un certain temps a apparaitre.
 
-Il faut en premier lieu configurer le packet Webdav.
-Il faut savoir si l'on souhaite utiliser http ou https (je recommande https).
-Une fois activer, il faut noter le port activé pour le https (5006 par defaut).
+include::configuration_synology.asciidoc[]
 
-image::../images/caldav_synology1.jpg[]
-
-Il faut savoir où seront stocké les calendriers :
-
-image::../images/caldav_synology2.jpg[]
-
-Il faudra donc spécifier dans jeedom comme suit :
-
-image::../images/caldav_synology3.jpg[]
-
-WARNING: Le nom du calendrier ne peut-être choisi qu'après sauvegarde de l'équipement avec des informations justes.
+include::configuration_framagenda.asciidoc[]
