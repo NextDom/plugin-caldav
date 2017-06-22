@@ -89,7 +89,6 @@ class caldav extends eqLogic {
 			try {
 				$desc_event = array();
 				$events = array();
-				date_default_timezone_set('GMT');
 				$time = mktime();
 				$client = new SimpleCalDAVClient();
 				$client->connect($this->getConfiguration('url'), $this->getConfiguration('username'), $this->getConfiguration('password'));
@@ -99,7 +98,7 @@ class caldav extends eqLogic {
 				$client->setCalendar($arrayOfCalendars[$this->getConfiguration('calendrier')]);
 				try {
 					log::add('caldav', 'debug', 'Recupere les évenements entre '.date("Ymd\THi00\Z", $time).' et '.date("Ymd\THi59\Z", $time));
-					$events = $client->getEvents(date("Ymd\THi00\Z", $time),date("Ymd\THi59\Z", $time));
+					$events = $client->getEvents(gmdate("Ymd\THi00\Z", $time),gmdate("Ymd\THi59\Z", $time));
 				} catch (Exception $e) {
 					log::add('caldav', 'debug', 'Aucun event');
 					$events = array();
