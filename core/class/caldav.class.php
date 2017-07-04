@@ -71,7 +71,7 @@ class caldav extends eqLogic {
 			try {
 				$desc_event = array();
 				$events = array();
-				$time = mktime();
+				$time = time();
 				$client = new SimpleCalDAVClient();
 				$client->connect($this->getConfiguration('url'), $this->getConfiguration('username'), $this->getConfiguration('password'));
 				log::add('caldav', 'debug', 'Find calendar');
@@ -89,7 +89,7 @@ class caldav extends eqLogic {
 			try {
 				$desc_event = array();
 				$events = array();
-				$time = mktime();
+				$time = time();
 				$client = new SimpleCalDAVClient();
 				$client->connect($this->getConfiguration('url'), $this->getConfiguration('username'), $this->getConfiguration('password'));
 				log::add('caldav', 'debug', 'Chose calendar '.$this->getConfiguration('calendrier'));
