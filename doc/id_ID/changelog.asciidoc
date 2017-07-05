@@ -3,12 +3,11 @@ WARNING: Detail complet des mises à jour sur https://github.com/guenneguezt/plu
 
 Liste des évolutions majeures de la version courante :
 
-- Correction pour la timezone
+- Test et validation sur framagenda
+- Désactivation de la vérification SSL.
 
 Anciennes évolutions :
 
-- Test et validation sur framagenda
-- Désactivation de la vérification SSL.
 - Correction pour supprimer les caractères de ponctuation en fin
 - Modification pour compatibilité Jeedom V3
 - Plus de suivi de version
