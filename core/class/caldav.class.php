@@ -110,7 +110,7 @@ class caldav extends eqLogic {
 					foreach ( explode("\n", $data) AS $debug) {
 						//log::add('caldav', 'debug', 'debug : '.$debug);
 						if ( preg_match("!^(.*):(.*)$!", $debug, $regs) ) {
-							if ( $regs[1] == "SUMMARY" ) {
+							if ( strrpos($regs[1], "SUMMARY", -strlen("SUMMARY")) !== false ) {
 								log::add('caldav', 'debug', 'Trouve '.chop($regs[2]));
 								array_push($desc_event, chop($regs[2]));
 							}
