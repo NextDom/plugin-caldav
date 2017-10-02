@@ -18,9 +18,20 @@
         "Pattern": "Pattern",
         "Valeur par défaut": "Valeur par défaut",
         "Supprimer": "Supprimer",
-        "Sauvegarder": "Sauvegarder"
+        "Sauvegarder": "Sauvegarder",
+        "Gestion": "Gestion",
+        "Configuration": "Configuration",
+        "URL caldav": "URL caldav",
+        "Calendrier": "Calendrier"
     },
     "plugins\/caldav\/desktop\/js\/caldav.js": {
         "Tester": "Tester"
+    },
+    "plugins\/caldav\/core\/class\/caldav.class.php": {
+        "Aucun": "Aucun"
+    },
+    "plugins\/caldav\/plugin_info\/configuration.php": {
+        "Faire un don au développeur": "Faire un don au développeur",
+        "Faire un don via Paypal au développeur": "Faire un don via Paypal au développeur"
     }
 }
