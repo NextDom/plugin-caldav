@@ -9,7 +9,7 @@ Liste der wichtigsten Änderungen in der aktuellen Version :
 Anciennes évolutions :
 
 - Correction pour supprimer les caractères de ponctuation en fin
-- Modification pour compatibilité Jeedom V3
+- Änderungen um mit Jeedom V3 kompatiebel zu sein
 - Plus de suivi de version
 - Possibilité de choisir un calendrier et remise en fonctionnement du plugin
 - Beta-Version des Plugins
