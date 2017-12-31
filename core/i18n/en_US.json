@@ -19,15 +19,15 @@
         "Valeur par défaut": "Default value",
         "Supprimer": "Delete",
         "Sauvegarder": "Save",
-        "Gestion": "Gestion",
+        "Gestion": "Management",
         "Configuration": "Configuration",
         "URL caldav": "URL caldav",
-        "Calendrier": "Calendrier"
+        "Calendrier": "Calendar"
     },
     "plugins\/caldav\/desktop\/js\/caldav.js": {
         "Tester": "Test"
     },
     "plugins\/caldav\/core\/class\/caldav.class.php": {
-        "Aucun": "Aucun"
+        "Aucun": "None"
     }
 }
