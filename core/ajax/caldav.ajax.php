@@ -17,23 +17,23 @@
  */
 
 try {
-    require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
+    require_once __DIR__ . '/../../../../core/php/core.inc.php';
     include_file('core', 'authentification', 'php');
-	include_file('core', 'caldav', 'class', 'caldav');
+    include_file('core', 'caldav', 'class', 'caldav');
     if (!isConnect('admin')) {
-        throw new Exception(__('401 - Accès non autorisé', __FILE__));
+        throw new \Exception(__('401 - Accès non autorisé', __FILE__));
     }
 
     if (init('action') == 'getCalendars') {
         $eqLogic = caldav::byId(init('id'));
         if (!is_object($eqLogic)) {
-            throw new Exception(__('caldav eqLogic non trouvé : ', __FILE__) . init('id'));
+            throw new \Exception(__('caldav eqLogic non trouvé : ', __FILE__) . init('id'));
         }
-		ajax::success($eqLogic->getCalendars());
+        ajax::success($eqLogic->getCalendars());
     }
-	throw new Exception(__('Aucune methode correspondante à : ', __FILE__) . init('action'));
-    /*     * *********Catch exeption*************** */
-} catch (Exception $e) {
-    ajax::error(displayExeption($e), $e->getCode());
+    throw new \Exception(__('Aucune methode correspondante à : ', __FILE__) . init('action'));
+     
+} catch (\Exception $e) {
+    ajax::error(displayException($e), $e->getCode());
 }
-?>
+ 
